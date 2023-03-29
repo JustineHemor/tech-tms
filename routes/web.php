@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TasksController;
+use App\Http\Controllers\UsersController;
 
 
 /*
@@ -29,9 +30,11 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/users', function () {
-        return view('users');
-    })->name('users');
+    // Route::get('/users', function () {
+    //     return view('users');
+    // })->name('users');
+
+    Route::resource('users', UsersController::class);
     
     Route::resource('tasks', TasksController::class);
 });
