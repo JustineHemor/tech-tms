@@ -39,20 +39,9 @@
                                 </div>
 
                                 <!-- Assignee -->
-                                <div class="col-span-6 sm:col-span-4 mt-4">
-                                  <x-label for="assignee" class="mb-2" value="{{ __('Assign To') }}" />
-                                  <div class="p-2 border rounded-b-lg grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-h-28 overflow-y-auto rounded-md shadow-sm border-gray-300">
-                                    @foreach ( $users as $item )
-                                      <label><input name="assignee[]" type="checkbox" class="border-gray-300 mr-1 rounded" class="ml-1" wire:model.defer="state.assignee" value="{{ $item->id }}" 
-                                        @if (in_array($item->id, $assignees))
-                                          checked
-                                        @endif  
-                                      />{{ $item->name }}</label>
-                                    @endforeach
-                                  </div>
-                                  <x-input-error for="assignee" class="mt-2" />
-                                </div>
-
+                                <livewire:edit-task-assignees :task="$task" :task_id="$task->id"/>
+                                {{-- @livewire('edit-task-assignees') --}}
+                                
                                 <x-button class="mt-4">
                                   {{ __('Submit') }}
                                 </x-button>

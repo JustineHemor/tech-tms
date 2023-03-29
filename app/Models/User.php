@@ -63,22 +63,22 @@ class User extends Authenticatable
 
     public function createdBy()
     {
-        return $this->hasMany(Task::class, 'created_by', 'id');
+        return $this->hasMany(Task::class, 'created_by_id');
     }
 
     public function completedBy()
     {
-        return $this->hasMany(Task::class, 'updated_by', 'id');
+        return $this->hasMany(Task::class, 'completed_by_id');
     }
 
-    public function tasks()
+    public function assignees()
     {
-        return $this->belongsToMany(Task::class, 'assignees')->withTimestamps();
+        return $this->belongsToMany(Task::class)->withTimestamps();
     }
 
     public function commentCreatedBy()
     {
-        return $this->hasMany(Comment::class, 'created_by', 'id');
+        return $this->hasMany(Comment::class, 'created_by_id');
     }
 
 }

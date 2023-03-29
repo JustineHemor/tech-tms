@@ -23,10 +23,6 @@ return new class extends Migration
             $table->foreignIdFor(User::class, 'created_by_id')->constrained()->onDelete('cascade');
             $table->foreignIdFor(User::class, 'assigner_id')->constrained()->nullable()->onDelete('cascade');
 
-            
-            // $table->foreignId('completed_by')->nullable()->constrained()->onDelete('cascade');
-            // $table->foreignId('created_by')->constrained()->onDelete('cascade');
-
             $table->timestamps();
         });
     }

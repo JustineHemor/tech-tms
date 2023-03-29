@@ -39,11 +39,10 @@ class TasksController extends Controller
         $task->description = $request->input('description');
         $task->due_date = $request->input('due_date');
         $task->created_by_id = Auth::id();
+
         $task->save();
 
-        $assignees = $request->input('assignee');
-
-        $task->assignees()->attach($assignees);
+        $task->taskAssignees($task, $request->input('assignee'));
 
         return redirect()->to('tasks')->with('success', 'Task successfully created!');
     }
@@ -64,9 +63,7 @@ class TasksController extends Controller
      */
     public function edit(Task $task)
     {
-        $users = User::all();
-        $assignees = $task->assignees->pluck('id')->toArray();
-        return view('tasks.edit', compact('task', 'users', 'assignees'));
+        return view('tasks.edit', compact('task'));
     }
 
     /**
@@ -79,7 +76,6 @@ class TasksController extends Controller
         $task->due_date = $request->input('due_date');
 
         $task->save();
-        $task->assignees()->sync($request->input('assignee'));
 
         return redirect()->to('tasks')->with('success', 'Task successfully updated!');  
     }

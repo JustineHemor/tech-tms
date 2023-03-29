@@ -25,7 +25,7 @@ class StoreTaskRequest extends FormRequest
             'title'         => 'required|unique:tasks,title|max:255',
             'description'   => 'required',    
             'due_date'      => 'required|date',
-            'assignee'      => 'required|array|exists:users,id'
+            'assignee'      => 'array|exists:users,id'
         ];
     }
 }

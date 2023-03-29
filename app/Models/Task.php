@@ -4,19 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Task extends Model
 {
     use HasFactory;
-
-    // protected $fillable = [
-    //             'title', 
-    //             'description', 
-    //             'due_date', 
-    //             'completed_at', 
-    //             'completed_by', 
-    //             'created_by'
-    //         ];
 
     // protected array $casts = [
     //     'due_date' => 'date:Y-m-d',
@@ -46,5 +38,17 @@ class Task extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function taskAssignees($task, $assignees)
+    {
+        if (empty($assignees)) {
+            return;
+        }
+        $task->assigner_id = Auth::id();
+        $task->assignees()->attach($assignees);
+        $task->save();
+
+        return;
     }
 }
