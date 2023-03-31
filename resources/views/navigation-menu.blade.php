@@ -16,16 +16,20 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">
-                        {{ __('Users') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.index')">
-                        {{ __('Tasks') }}
-                    </x-nav-link>
-                </div>
+                @hasrole('manager')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">
+                            {{ __('Users') }}
+                        </x-nav-link>
+                    </div>
+                @endrole
+                @hasanyrole('manager|creator|assignee')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.index')">
+                            {{ __('Tasks') }}
+                        </x-nav-link>
+                    </div>
+                @endrole
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -151,16 +155,20 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">
-                {{ __('Users') }}
-            </x-responsive-nav-link>
-        </div>
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.index')">
-                {{ __('Tasks') }}
-            </x-responsive-nav-link>
-        </div>
+        @hasrole('manager')
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">
+                    {{ __('Users') }}
+                </x-responsive-nav-link>
+            </div>
+        @endrole
+        @hasanyrole('manager|creator|assignee')
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.index')">
+                    {{ __('Tasks') }}
+                </x-responsive-nav-link>
+            </div>
+        @endrole
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="flex items-center px-4">

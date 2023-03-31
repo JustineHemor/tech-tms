@@ -12,7 +12,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::query()->whereNot('role', null)->get();
+        $users = User::all();
         return view('users.index', compact('users'));
     }
 
@@ -43,9 +43,9 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        //
+        return view('users.edit', compact('user'));
     }
 
     /**

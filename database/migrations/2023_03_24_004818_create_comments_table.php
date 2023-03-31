@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->text('body');
-            $table->foreignIdFor(Task::class, 'task_id')->constrained()->onDelete('cascade');
-            $table->foreignIdFor(Task::class, 'created_by_id')->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Task::class, 'task_id')->onDelete('cascade');
+            $table->foreignIdFor(Task::class, 'created_by_id')->onDelete('cascade');
             $table->timestamps();
         });
     }

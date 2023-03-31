@@ -7,12 +7,15 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use Spatie\Permission\Traits\HasRoles;
 
 class TasksController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    use HasRoles;
+
     public function index()
     {
         $tasks = Task::all();
@@ -23,9 +26,15 @@ class TasksController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        $users = User::all();
-        return view('tasks.create', compact('users'));
+    {   
+        /** @var User $user */ 
+        $user = Auth::user();
+        if ($user->hasAnyRole(['manager', 'creator'])) {
+            $users = User::role('assignee')->get();
+            return view('tasks.create', compact('users'));
+        } else {
+            return back();
+        }
     }
 
     /**
@@ -52,6 +61,7 @@ class TasksController extends Controller
      */
     public function show(Task $task)
     {
+
         $users = User::all();
         $assignees = $task->assignees->pluck('id')->toArray();
         $date = $task->created_at->format('F j, Y g:i A');
@@ -63,7 +73,13 @@ class TasksController extends Controller
      */
     public function edit(Task $task)
     {
-        return view('tasks.edit', compact('task'));
+        /** @var User $user */ 
+        $user = Auth::user();
+        if ($user->hasAnyRole(['manager', 'creator'])) {
+            return view('tasks.edit', compact('task'));
+        } else {
+            return back();
+        }
     }
 
     /**

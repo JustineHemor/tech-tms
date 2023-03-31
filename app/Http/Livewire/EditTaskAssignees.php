@@ -18,7 +18,6 @@ class EditTaskAssignees extends Component
     {
         $this->users = User::all();
         $this->assignees = $task->assignees->pluck('id')->toArray();
-
     }
     
     public function updateAssignees()

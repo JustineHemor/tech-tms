@@ -30,11 +30,7 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    // Route::get('/users', function () {
-    //     return view('users');
-    // })->name('users');
-
-    Route::resource('users', UsersController::class);
+    Route::resource('users', UsersController::class)->middleware('role:manager');
     
-    Route::resource('tasks', TasksController::class);
+    Route::resource('tasks', TasksController::class)->middleware('role:manager|creator|assignee');
 });

@@ -31,13 +31,16 @@
                                 <tbody>
                                   @foreach($users as $item)
                                   <tr class="border-b dark:border-neutral-200">
-                                    <td class="whitespace-nowrap  px-6 py-4 font-medium">{{ $item->employee_code }}</td>
-                                    <td class="whitespace-nowrap  px-6 py-4">{{ $item->name }}</td>
-                                    <td class="whitespace-nowrap  px-6 py-4">{{ $item->email }}</td>
-                                    <td class="whitespace-nowrap  px-6 py-4">{{ $item->role }}</td>
-                                    <td class="whitespace-nowrap  px-6 py-4">
-                                      <a href="{{ route('users.show', $item->id) }}" class="text-cyan-700 pr-2">View</a>
-                                      <a href="{{ route('users.edit', $item->id) }}" class="text-blue-500">Edit</a>
+                                    <td class="whitespace-nowrap  px-6 py-3 font-medium">{{ $item->employee_code }}</td>
+                                    <td class="whitespace-nowrap  px-6 py-3">{{ $item->name }}</td>
+                                    <td class="whitespace-nowrap  px-6 py-3">{{ $item->email }}</td>
+                                    <td class="whitespace-nowrap  px-6 py-3">{{  ucwords($item->roles->pluck('name')->implode(', ')) }}</td>
+                                    <td class="whitespace-nowrap  px-6 py-3">
+                                      <a href="{{ route('users.edit', $item->id) }}" class="text-blue-500">
+                                        <x-button class=" bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900">
+                                        {{ __('Edit Role') }}
+                                        </x-button>
+                                      </a>
                                     </td>
                                   </tr>
                                   @endforeach

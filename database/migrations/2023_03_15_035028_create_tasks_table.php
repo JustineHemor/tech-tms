@@ -19,9 +19,9 @@ return new class extends Migration
             $table->date('due_date')->nullable();
             $table->datetime('completed_at')->nullable();
 
-            $table->foreignIdFor(User::class, 'completed_by_id')->constrained()->nullable()->onDelete('cascade');
-            $table->foreignIdFor(User::class, 'created_by_id')->constrained()->onDelete('cascade');
-            $table->foreignIdFor(User::class, 'assigner_id')->constrained()->nullable()->onDelete('cascade');
+            $table->foreignIdFor(User::class, 'completed_by_id')->nullable()->onDelete('cascade');
+            $table->foreignIdFor(User::class, 'created_by_id')->onDelete('cascade');
+            $table->foreignIdFor(User::class, 'assigner_id')->nullable()->onDelete('cascade');
 
             $table->timestamps();
         });
