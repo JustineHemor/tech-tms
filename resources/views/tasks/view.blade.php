@@ -42,33 +42,7 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                <div class="p-6 lg:p-8 flex flex-col space-y-5">
-                                    <div class="my-5">
-                                        <label for="body"> Add Comment</label>
-                                        <textarea name="body" id="body" rows="3" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"></textarea>
-                                        <x-button class="mt-3">
-                                            {{ __('Post Comment') }}
-                                        </x-button>
-                                    </div>
-                                    <div class="my-5">
-                                        <div class="flex space-x-1">
-                                            <span class="text-black text-sm">John Doe</span>
-                                            <span class="text-gray-500 text-xs font-mono p-0.5"> 3 minutes ago</span>
-                                        </div>
-                                        <p class="my-1 text-gray-800 leading-relaxed text-sm">
-                                            Ipsum int rerum, fuga aliquam possimus hic sed omnis reiciendis quidem incidunt provident et?
-                                        </p>
-                                    </div>
-                                    <div class="my-5">
-                                        <div class="flex space-x-1">
-                                            <span class="text-black text-sm">Juan Dela Cruz</span>
-                                            <span class="text-gray-500 text-xs font-mono p-0.5"> 25 minutes ago</span>
-                                        </div>
-                                        <p class="my-1 text-gray-800 leading-relaxed text-sm">
-                                            Lorem dolor sit amet consectetur adipisicing elit. Porro, dolor eos recusandae unde veritatis maxime.
-                                        </p>
-                                    </div>
-                                </div>
+                                <livewire:task-comment-section :task="$task" />
                             </div>
                           </div>
                         </div>
