@@ -14,14 +14,20 @@ class EditTaskAssignees extends Component
     public $updatedAssignees;
     public $task_id;
 
+    protected $rules = [
+        'assignees' => 'exists:users,id'
+    ];
+
     public function mount(Task $task)
     {
+
         $this->users = User::all();
         $this->assignees = $task->assignees->pluck('id')->toArray();
     }
     
     public function updateAssignees()
     {
+        $this->validate();
         $selectedAssignees = $this->assignees;
         $task = Task::query()->firstWhere('id', $this->task_id);
         $task->assignees()->sync($selectedAssignees);

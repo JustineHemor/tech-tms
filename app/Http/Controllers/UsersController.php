@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRoleRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
 {
@@ -12,7 +14,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy('id', 'desc')->get();
         return view('users.index', compact('users'));
     }
 
@@ -29,7 +31,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -45,15 +47,22 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $roles = Role::all();
+        $user_roles = $user->getRoleNames();
+        return view('users.edit', compact('user', 'roles', 'user_roles'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateUserRoleRequest $request, User $user)
     {
-        //
+        // All current roles will be removed from the user and replaced by the array given
+        $user->syncRoles($request->input('role'));
+
+        $user->save();
+
+        return redirect()->to('users')->with('success', 'User role successfully updated!');  
     }
 
     /**

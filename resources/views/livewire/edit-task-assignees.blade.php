@@ -6,5 +6,6 @@
         />{{ $item->name }}</label>
       @endforeach
     </div>
+    @error('assignees') <x-input-error for="assignees" class="mt-2" /> @enderror
     <x-input-error for="assignee" class="mt-2" />
   </div>
