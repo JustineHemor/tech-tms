@@ -13,7 +13,8 @@ class TaskCommentSection extends Component
     public $comment;
 
     protected $rules = [
-        'comment' => 'required'
+        'comment' => 'required',
+        'task_id' => 'required|exists:tasks,id'
     ];
 
     public function addComment()
