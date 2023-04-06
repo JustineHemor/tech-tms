@@ -53,7 +53,8 @@ class TasksController extends Controller
 
         $task->taskAssignees($task, $request->input('assignee'));
 
-        return redirect()->to('tasks')->with('success', 'Task successfully created!');
+        return redirect('/tasks/'.$task->id)->with('success', 'Task successfully created!');
+        // return redirect()->to('tasks')->with('success', 'Task successfully created!');
     }
 
     /**
