@@ -8,13 +8,12 @@ use Livewire\Component;
 
 class TaskCommentSection extends Component
 {
-    public $task;
-    public $user;
+    public $task_id;
     public $comment;
 
     protected $rules = [
         'comment' => 'required',
-        // 'tas k' => 'required|exists:tasks'
+        'task_id' => 'required|exists:tasks,id'
     ];
 
     public function addComment()
@@ -23,7 +22,7 @@ class TaskCommentSection extends Component
 
         $comment = new Comment();
         $comment->body = $this->comment;
-        $comment->task_id = $this->task->id;
+        $comment->task_id = $this->task_id;
         $comment->created_by_id = Auth::user()->id;
 
         $comment->save();
@@ -33,7 +32,7 @@ class TaskCommentSection extends Component
 
     public function render()
     {
-        $comments = Comment::where('task_id', $this->task->id)->orderBy('id','desc')->get();
+        $comments = Comment::where('task_id', $this->task_id)->orderBy('id','desc')->get();
     
         return view('livewire.task-comment-section', [
             'comments' => $comments

@@ -46,7 +46,7 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                <livewire:task-comment-section :task="$task" />
+                                <livewire:task-comment-section :task_id="$task->id"/>
                             </div>
                           </div>
                         </div>
