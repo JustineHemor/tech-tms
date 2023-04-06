@@ -45,6 +45,25 @@
                                             @endif
                                         @endforeach
                                     </div>
+                                    @if (empty($task->completed_at))
+                                        <div class="flex mt-4">
+                                            <form action="{{ route('tasks.complete', $task->id) }}" method="post">
+                                                {!! csrf_field() !!}
+                                                <x-button class="bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900">
+                                                    {{ __('Mark as done') }}
+                                                </x-button>
+                                            </form>
+                                        </div>
+                                    @else
+                                    <div class="flex mt-4">
+                                        <form action="{{ route('tasks.reopen', $task->id) }}" method="post">
+                                            {!! csrf_field() !!}
+                                            <x-button class="bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900">
+                                                {{ __('Reopen Task') }}
+                                            </x-button>
+                                        </form>
+                                    </div>
+                                    @endif
                                 </div>
                                 <livewire:task-comment-section :task_id="$task->id"/>
                             </div>

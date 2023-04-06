@@ -35,4 +35,6 @@ Route::middleware([
     Route::resource('users', UsersController::class)->middleware('role:manager');
     
     Route::resource('tasks', TasksController::class)->middleware('role:manager|creator|assignee');
+    Route::post('/tasks/{id}/complete', [TasksController::class, 'complete'])->name('tasks.complete')->middleware('role:manager|creator|assignee');
+    Route::post('/tasks/{id}/reopen', [TasksController::class, 'reopen'])->name('tasks.reopen')->middleware('role:manager|creator|assignee');
 });

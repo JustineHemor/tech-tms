@@ -98,6 +98,34 @@ class TasksController extends Controller
     }
 
     /**
+     * Mark a task as completed.
+     */
+    public function complete($id)
+    {
+        $task = Task::findOrFail($id);
+        $task->completed_by_id = Auth::id();
+        $task->completed_at = now();
+        $task->save();
+
+        return redirect('/tasks/'.$task->id)->with('success', 'Task completed!');
+
+    }
+
+    /**
+     * Reopen task.
+     */
+    public function reopen($id)
+    {
+        $task = Task::findOrFail($id);
+        $task->completed_by_id = null;
+        $task->completed_at = null;
+        $task->save();
+
+        return redirect('/tasks/'.$task->id)->with('success', 'Task reopened!');
+    }
+
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
