@@ -54,8 +54,11 @@
                                     </td>
                                   </tr>
                                   @endforeach
-                                </tbody>
+                                </tbody>                              
                               </table>
+                              <div class="mt-2">
+                                {{ $tasks->links() }}
+                              </div>
                             </div>
                           </div>
                         </div>
