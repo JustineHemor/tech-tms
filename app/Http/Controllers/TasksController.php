@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TaskStored;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -53,8 +54,9 @@ class TasksController extends Controller
 
         $task->taskAssignees($task, $request->input('assignee'));
 
+        event(new TaskStored($task));
+
         return redirect('/tasks/'.$task->id)->with('success', 'Task successfully created!');
-        // return redirect()->to('tasks')->with('success', 'Task successfully created!');
     }
 
     /**
