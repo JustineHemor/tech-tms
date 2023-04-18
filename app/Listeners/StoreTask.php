@@ -32,6 +32,7 @@ class StoreTask
             'subject' => 'Task Posted - ' . $task->title,
             'body' => 'The task you created just posted. Description: ' . $task->description
         ];
-        Mail::to($user->email)->send(new NewTaskMail($data));
+        
+        Mail::to($user->email)->queue(new NewTaskMail($data));
     }
 }

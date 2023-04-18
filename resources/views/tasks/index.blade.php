@@ -23,6 +23,11 @@
                                     {{ __('Create Task') }}
                                   </x-button>
                                 </a>
+                                <a href="{{ route('tasks.generate') }}">
+                                  <x-button class="mb-4">
+                                    {{ __('Generate Report') }}
+                                  </x-button>
+                                </a>
                               @endrole
                               <table class="w-full text-center text-sm font-light">
                                 <thead

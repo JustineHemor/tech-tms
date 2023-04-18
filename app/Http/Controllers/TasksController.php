@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Jobs\GenerateRawDataReport;
 use Spatie\Permission\Traits\HasRoles;
 
 class TasksController extends Controller
@@ -19,7 +20,8 @@ class TasksController extends Controller
 
     public function index()
     {
-        $tasks = Task::latest()->paginate(10);
+        // $tasks = Task::latest()->paginate(10);
+        $tasks = Task::orderBy('id', 'desc')->paginate(10);
         return view('tasks.index', compact('tasks'));
     }
 
@@ -124,6 +126,16 @@ class TasksController extends Controller
         $task->save();
 
         return redirect('/tasks/'.$task->id)->with('success', 'Task reopened!');
+    }
+
+    /**
+     * Generate Raw Data Report CSV File.
+     */
+    public function generate()
+    {
+        GenerateRawDataReport::dispatch();
+
+        return redirect()->to('tasks')->with('success', 'Reports generating! Please wait a few seconds.');  
     }
 
 

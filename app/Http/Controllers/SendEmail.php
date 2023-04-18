@@ -18,7 +18,7 @@ class SendEmail extends Controller
 
         $user = Auth::user();
 
-        Mail::to($user->email)->send(new WelcomeMessage($data));
+        Mail::to($user->email)->queue(new WelcomeMessage($data));
 
         return 1;
     }

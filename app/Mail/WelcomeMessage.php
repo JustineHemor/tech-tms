@@ -11,7 +11,7 @@ use Illuminate\Queue\SerializesModels;
 
 class WelcomeMessage extends Mailable
 {
-    use SerializesModels;
+    use Queueable, SerializesModels;
 
     public $data;
 
