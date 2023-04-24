@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\CreateTask;
 use App\Events\TaskStored;
 use App\Models\Task;
 use App\Models\User;
@@ -45,16 +46,11 @@ class TasksController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
+        // Instatiate the CreateTask class
+        $createTask = new CreateTask();
 
-        $task = new Task();
-        $task->title = $request->input('title');
-        $task->description = $request->input('description');
-        $task->due_date = $request->input('due_date');
-        $task->created_by_id = Auth::id();
-
-        $task->save();
-
-        $task->taskAssignees($task, $request->input('assignee'));
+        // Call the handle method of the CreateTask class and pass the request object
+        $task = $createTask->handle($request);
 
         event(new TaskStored($task));
 
